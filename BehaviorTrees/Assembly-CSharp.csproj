@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Node.cs" />
+    <Compile Include="Assets\Scripts\Sequence.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Repos/GameAIFinal/BehaviorTrees/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
