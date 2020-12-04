@@ -63,8 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Node.cs" />
-    <Compile Include="Assets\Scripts\Sequence.cs" />
+    <Compile Include="Assets\Scripts\CustomNodes\HealthNode.cs" />
+    <Compile Include="Assets\Scripts\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\Framework\Inverter.cs" />
+    <Compile Include="Assets\Scripts\Framework\Node.cs" />
+    <Compile Include="Assets\Scripts\Framework\Selector.cs" />
+    <Compile Include="Assets\Scripts\Framework\Sequence.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Repos/GameAIFinal/BehaviorTrees/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
