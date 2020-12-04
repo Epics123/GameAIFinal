@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -17,35 +18,75 @@ public class EnemyAI : MonoBehaviour
     private float shootRange;
 
     [SerializeField]
-    private float playerTransform;
+    private Transform playerTransform;
     [SerializeField]
     private List<Cover> availableCovers;
 
     private Material material;
     private Transform bestCoverLocation;
+    private NavMeshAgent agent;
 
-    private float currentHealth
+    private Node topNode;
+
+    private float enemyCurrentHelth;
+
+    public float currentHealth
     {
-        get { return currentHealth; }
-        set { currentHealth = Mathf.Clamp(value, 0, startHealth); }
+        get { return enemyCurrentHelth; }
+        set { enemyCurrentHelth = Mathf.Clamp(value, 0, startHealth); }
+    }
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        material = GetComponent<MeshRenderer>().material;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = startHealth;
-        material = GetComponent<MeshRenderer>().material;
+        enemyCurrentHelth = startHealth;
+        ConstructBehaviorTree();
     }
 
     // Update is called once per frame
     void Update()
     {
+        topNode.Evaluate();
+        if (topNode.nodeState == NodeState.FAILURE)
+            SetColor(Color.black);
         currentHealth += Time.deltaTime * healRate;
     }
 
-    public float GetHealth()
+    private void OnMouseDown()
     {
-        return currentHealth;
+        currentHealth -= 10.0f;
+    }
+
+    private void ConstructBehaviorTree()
+    {
+        //Custom Nodes
+        IsCoverAvailableNode coverAvailableNode = new IsCoverAvailableNode(availableCovers, playerTransform, this);
+        MoveToCoverNode moveToCoverNode = new MoveToCoverNode(agent, this);
+        HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
+        IsCoveredNode isCoveredNode = new IsCoveredNode(playerTransform, transform);
+        ChaseNode chaseNode = new ChaseNode(playerTransform, agent, this);
+        RangeNode chaseRangeNode = new RangeNode(chaseRange, playerTransform, transform);
+        RangeNode shootRangeNode = new RangeNode(shootRange, playerTransform, transform);
+        ShootNode shootNode = new ShootNode(agent, this);
+
+        //Sequence Nodes
+        Sequence chaseSequence = new Sequence(new List<Node> { chaseRangeNode, chaseNode });
+        Sequence shootSequence = new Sequence(new List<Node> { shootRangeNode, shootNode });
+        Sequence moveToCoverSequence = new Sequence(new List<Node> { coverAvailableNode, moveToCoverNode });
+
+        //Selector Nodes
+        Selector findCoverSelector = new Selector(new List<Node> { moveToCoverSequence, chaseSequence });
+        Selector takeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
+
+        Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, takeCoverSelector });
+
+        topNode = new Selector(new List<Node> { mainCoverSequence, shootSequence, chaseSequence });
     }
 
     public void SetColor(Color color)

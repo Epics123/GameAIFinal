@@ -15,6 +15,6 @@ public class HealthNode : Node
 
     public override NodeState Evaluate()
     {
-        return enemyAI.GetHealth() <= healthThreshold ? NodeState.SUCCESS : NodeState.FAILURE;
+        return enemyAI.currentHealth <= healthThreshold ? NodeState.SUCCESS : NodeState.FAILURE;
     }
 }
