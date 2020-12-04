@@ -11,6 +11,14 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float healRate;
 
+    [SerializeField]
+    private float chaseRange;
+    [SerializeField]
+    private float shootRange;
+
+    [SerializeField]
+    private float playerTransform;
+
     private float currentHealth
     {
         get { return currentHealth; }

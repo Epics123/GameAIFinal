@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CustomNodes\HealthNode.cs" />
+    <Compile Include="Assets\Scripts\CustomNodes\RangeNode.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Framework\Inverter.cs" />
     <Compile Include="Assets\Scripts\Framework\Node.cs" />
