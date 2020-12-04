@@ -18,6 +18,11 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField]
     private float playerTransform;
+    [SerializeField]
+    private List<Cover> availableCovers;
+
+    private Material material;
+    private Transform bestCoverLocation;
 
     private float currentHealth
     {
@@ -29,6 +34,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         currentHealth = startHealth;
+        material = GetComponent<MeshRenderer>().material;
     }
 
     // Update is called once per frame
@@ -40,5 +46,20 @@ public class EnemyAI : MonoBehaviour
     public float GetHealth()
     {
         return currentHealth;
+    }
+
+    public void SetColor(Color color)
+    {
+        material.color = color;
+    }
+
+    public void SetBestCoverLocation(Transform location)
+    {
+        bestCoverLocation = location;
+    }
+
+    public Transform GetBestCover()
+    {
+        return bestCoverLocation;
     }
 }

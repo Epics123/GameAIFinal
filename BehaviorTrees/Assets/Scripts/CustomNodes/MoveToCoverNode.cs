@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChaseNode : Node
+public class MoveToCoverNode : Node
 {
-    private Transform target;
     private NavMeshAgent agent;
     private EnemyAI enemyAI;
 
-    public ChaseNode(Transform target, NavMeshAgent agent, EnemyAI ai)
+    public MoveToCoverNode(NavMeshAgent agent, EnemyAI ai)
     {
-        this.target = target;
         this.agent = agent;
         enemyAI = ai;
     }
 
     public override NodeState Evaluate()
     {
-        enemyAI.SetColor(Color.cyan);
-        float distance = Vector3.Distance(target.position, agent.transform.position);
+        Transform cover = enemyAI.GetBestCover();
+        if (cover == null)
+            return NodeState.FAILURE;
+
+        enemyAI.SetColor(Color.red);
+        float distance = Vector3.Distance(cover.position, agent.transform.position);
         if(distance > 0.2f)
         {
             agent.isStopped = false;
-            agent.SetDestination(target.position);
+            agent.SetDestination(cover.position);
             return NodeState.RUNNING;
         }
         else

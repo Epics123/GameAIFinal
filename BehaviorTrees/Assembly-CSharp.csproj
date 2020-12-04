@@ -63,10 +63,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Cover.cs" />
     <Compile Include="Assets\Scripts\CustomNodes\ChaseNode.cs" />
     <Compile Include="Assets\Scripts\CustomNodes\HealthNode.cs" />
+    <Compile Include="Assets\Scripts\CustomNodes\IsCoverAvailableNode.cs" />
     <Compile Include="Assets\Scripts\CustomNodes\IsCoveredNode.cs" />
+    <Compile Include="Assets\Scripts\CustomNodes\MoveToCoverNode.cs" />
     <Compile Include="Assets\Scripts\CustomNodes\RangeNode.cs" />
+    <Compile Include="Assets\Scripts\CustomNodes\ShootNode.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
     <Compile Include="Assets\Scripts\Framework\Inverter.cs" />
     <Compile Include="Assets\Scripts\Framework\Node.cs" />
