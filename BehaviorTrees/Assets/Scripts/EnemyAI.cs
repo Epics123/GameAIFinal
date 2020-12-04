@@ -54,13 +54,11 @@ public class EnemyAI : MonoBehaviour
     {
         topNode.Evaluate();
         if (topNode.nodeState == NodeState.FAILURE)
+        {
             SetColor(Color.black);
+            agent.isStopped = true;
+        }
         currentHealth += Time.deltaTime * healRate;
-    }
-
-    private void OnMouseDown()
-    {
-        currentHealth -= 10.0f;
     }
 
     private void ConstructBehaviorTree()
@@ -87,6 +85,11 @@ public class EnemyAI : MonoBehaviour
         Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, takeCoverSelector });
 
         topNode = new Selector(new List<Node> { mainCoverSequence, shootSequence, chaseSequence });
+    }
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
     }
 
     public void SetColor(Color color)

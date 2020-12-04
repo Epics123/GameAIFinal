@@ -18,7 +18,7 @@ public class ChaseNode : Node
 
     public override NodeState Evaluate()
     {
-        enemyAI.SetColor(Color.cyan);
+        enemyAI.SetColor(Color.yellow);
         float distance = Vector3.Distance(target.position, agent.transform.position);
         if(distance > 0.2f)
         {
