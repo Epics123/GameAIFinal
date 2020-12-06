@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\Framework\Node.cs" />
     <Compile Include="Assets\Scripts\Framework\Selector.cs" />
     <Compile Include="Assets\Scripts\Framework\Sequence.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>E:/Repos/GameAIFinal/BehaviorTrees/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

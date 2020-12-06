@@ -264,6 +264,7 @@ MonoBehaviour:
   - {fileID: 46341568}
   - {fileID: 113624770}
   - {fileID: 1775169345}
+  enemyCurrentHelth: 0
 --- !u!195 &25829601
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -804,6 +805,7 @@ GameObject:
   - component: {fileID: 178682438}
   - component: {fileID: 178682437}
   - component: {fileID: 178682442}
+  - component: {fileID: 178682443}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -895,7 +897,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178682436}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -7.78}
+  m_LocalPosition: {x: -0.43, y: 0.5, z: -6.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -918,6 +920,19 @@ MonoBehaviour:
     m_Bits: 256
   damage: 25
   enemyAIs: []
+--- !u!114 &178682443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178682436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f5f0065fe6150845b7b8aa26ec8eb5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 7
 --- !u!1 &218278978
 GameObject:
   m_ObjectHideFlags: 0
