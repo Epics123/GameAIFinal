@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class IsCoverAvailableNode : Node
 {
-    private List<Cover> availableCovers;
+    private Cover[] availableCovers;
     private Transform target;
     private EnemyAI enemyAI;
 
-    public IsCoverAvailableNode(List<Cover> availableCovers, Transform target, EnemyAI ai)
+    public IsCoverAvailableNode(Cover[] availableCovers, Transform target, EnemyAI ai)
     {
         this.availableCovers = availableCovers;
         this.target = target;
@@ -24,10 +24,16 @@ public class IsCoverAvailableNode : Node
 
     private Transform FindBestCoverLocation()
     {
+        if (enemyAI.GetBestCover() != null)
+        {
+            if (IsSpotValid(enemyAI.GetBestCover()))
+                return enemyAI.GetBestCover();
+        }
+        
         float minAngle = 90.0f;
         Transform bestLoc = null;
 
-        for(int i = 0; i < availableCovers.Count; i++)
+        for(int i = 0; i < availableCovers.Length; i++)
         {
             Transform bestLocInCover = FindBestSpotInCover(availableCovers[i], ref minAngle);
             if (bestLocInCover != null)
@@ -38,10 +44,10 @@ public class IsCoverAvailableNode : Node
 
     private Transform FindBestSpotInCover(Cover cover, ref float minAngle)
     {
-        List<Transform> availableSpots = cover.GetCoverTransforms();
+        Transform[] availableSpots = cover.GetCoverTransforms();
         Transform bestSpot = null;
 
-        for(int i = 0; i < availableCovers.Count; i++)
+        for(int i = 0; i < availableSpots.Length; i++)
         {
             Vector3 direction = target.position - availableSpots[i].position;
             if (IsSpotValid(availableSpots[i]))

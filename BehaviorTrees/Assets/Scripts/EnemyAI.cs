@@ -20,7 +20,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private Transform playerTransform;
     [SerializeField]
-    private List<Cover> availableCovers;
+    private Cover[] availableCovers;
 
     private Material material;
     private Transform bestCoverLocation;
@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour
 
     private Node topNode;
 
+    [SerializeField]
     private float enemyCurrentHelth;
 
     public float currentHealth

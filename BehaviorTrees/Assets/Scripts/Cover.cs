@@ -5,7 +5,7 @@ using UnityEngine;
 public class Cover : MonoBehaviour
 {
     [SerializeField]
-    private List<Transform> coverTransforms;
+    private Transform[] coverTransforms;
 
     // Start is called before the first frame update
     void Start()
@@ -13,13 +13,7 @@ public class Cover : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public List<Transform> GetCoverTransforms()
+    public Transform[] GetCoverTransforms()
     {
         return coverTransforms;
     }

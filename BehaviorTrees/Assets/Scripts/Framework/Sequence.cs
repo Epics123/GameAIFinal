@@ -5,6 +5,7 @@ using UnityEngine;
 public class Sequence : Node
 {
     protected List<Node> nodes = new List<Node>();
+    private int currentNodeIndex;
 
     public Sequence(List<Node> nodes)
     {
@@ -13,20 +14,29 @@ public class Sequence : Node
 
     public override NodeState Evaluate()
     {
-        foreach(var node in nodes)
+        if(currentNodeIndex < nodes.Count)
         {
-            switch (node.Evaluate())
+            mNodeState = nodes[currentNodeIndex].Evaluate();
+            if (mNodeState == NodeState.RUNNING)
+                return NodeState.RUNNING;
+            else if(mNodeState == NodeState.FAILURE)
             {
-                case NodeState.RUNNING:
-                    mNodeState = NodeState.RUNNING;
-                    return mNodeState;
-                case NodeState.FAILURE:
-                    mNodeState = NodeState.FAILURE;
-                    return mNodeState;
+                currentNodeIndex = 0;
+                return NodeState.FAILURE;
+            }
+            else
+            {
+                currentNodeIndex++;
+                if (currentNodeIndex < nodes.Count)
+                    return NodeState.RUNNING;
+                else
+                {
+                    currentNodeIndex = 0;
+                    return NodeState.SUCCESS;
+                }
             }
         }
 
-        mNodeState = NodeState.SUCCESS;
-        return mNodeState;
+        return NodeState.SUCCESS;
     }
 }
