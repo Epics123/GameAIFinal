@@ -71,12 +71,12 @@ public class EnemyAI : MonoBehaviour
         IsCoveredNode isCoveredNode = new IsCoveredNode(playerTransform, transform);
         ChaseNode chaseNode = new ChaseNode(playerTransform, agent, this);
         RangeNode chaseRangeNode = new RangeNode(chaseRange, playerTransform, transform);
-        RangeNode shootRangeNode = new RangeNode(shootRange, playerTransform, transform);
-        ShootNode shootNode = new ShootNode(agent, this);
+        //RangeNode shootRangeNode = new RangeNode(shootRange, playerTransform, transform);
+        //ShootNode shootNode = new ShootNode(agent, this);
 
         //Sequence Nodes
         Sequence chaseSequence = new Sequence(new List<Node> { chaseRangeNode, chaseNode });
-        Sequence shootSequence = new Sequence(new List<Node> { shootRangeNode, shootNode });
+        //Sequence shootSequence = new Sequence(new List<Node> { shootRangeNode, shootNode });
         Sequence moveToCoverSequence = new Sequence(new List<Node> { coverAvailableNode, moveToCoverNode });
 
         //Selector Nodes
@@ -85,7 +85,7 @@ public class EnemyAI : MonoBehaviour
 
         Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, takeCoverSelector });
 
-        topNode = new Selector(new List<Node> { mainCoverSequence, shootSequence, chaseSequence });
+        topNode = new Selector(new List<Node> { mainCoverSequence, chaseSequence });
     }
 
     public void TakeDamage(float damage)
